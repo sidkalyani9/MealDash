@@ -9,7 +9,7 @@ import {
   AdjustmentsVerticalIcon,
   UserIcon
 } from "react-native-heroicons/outline";
-import Categories from './Categories';
+import Categories from './Category/Categories';
 
 const HomeScreen = () => {
 
