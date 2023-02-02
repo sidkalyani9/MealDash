@@ -1,4 +1,4 @@
-import { View, Text , Image, TextInput} from 'react-native'
+import { View, Text , Image, TextInput, ScrollView} from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +9,7 @@ import {
   AdjustmentsVerticalIcon,
   UserIcon
 } from "react-native-heroicons/outline";
+import Categories from './Categories';
 
 const HomeScreen = () => {
 
@@ -18,6 +19,7 @@ const HomeScreen = () => {
   const StyledText = styled(Text)
   const StyledTextInput = styled(TextInput);
   const SChevronDownIcon = styled(ChevronDownIcon);
+  const StyledScrollView = styled(ScrollView)
   
   useLayoutEffect(() => {
       navigation.setOptions({
@@ -67,6 +69,10 @@ const HomeScreen = () => {
           {/* <AdjustmentsIcon color='#00CCBB' size={20} /> */}
           <AdjustmentsVerticalIcon size={25} color="#FE3448" />
         </StyledView>
+
+        <StyledScrollView>
+          <Categories />
+        </StyledScrollView>
     </StyledSafeAreaView>
   )
 }
