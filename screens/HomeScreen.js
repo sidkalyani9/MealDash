@@ -10,6 +10,7 @@ import {
   UserIcon
 } from "react-native-heroicons/outline";
 import Categories from './Category/Categories';
+import Featured from './Featured';
 
 const HomeScreen = () => {
 
@@ -66,13 +67,42 @@ const HomeScreen = () => {
 
           </StyledView>
 
-          {/* <AdjustmentsIcon color='#00CCBB' size={20} /> */}
+        {/* <AdjustmentsIcon color='#00CCBB' size={20} /> */}
           <AdjustmentsVerticalIcon size={25} color="#FE3448" />
         </StyledView>
 
-        <StyledScrollView>
-          <Categories />
-        </StyledScrollView>
+        {/* Body */}
+        <StyledScrollView 
+          className='bg-gray-100 '
+          contentContainerStyle={{
+            paddingBottom:130,
+          }}
+        >
+          {/* Categories */}
+              <Categories />
+            
+
+          {/* Featured */}
+            <StyledView className='bg-gray-100'>
+              <Featured 
+                id="1"
+                title="Featured"
+                description="Paid Placements from our Partners"
+              />
+
+              <Featured 
+                id="2"
+                title="Tasty Discounts"
+                description="Best Discounts from our Top Restaurants"
+              />
+
+              <Featured 
+                id="3"
+                title="Offers near you!"
+                description="Why not support your local restaurants!"
+              />
+            </StyledView>
+          </StyledScrollView>
     </StyledSafeAreaView>
   )
 }

@@ -6,14 +6,13 @@ import CategoryCard from './CategoryCard'
 
 const Categories = () => {
 
-    const StyledText = styled(Text)
     const StyledScrollView = styled(ScrollView)
 
     return (
         <StyledScrollView 
             horizontal
             showsHorizontalScrollIndicator={false}
-            className="px-5 pt-2"
+            className="px-3.5 pt-3"
         >
             {/* Category Card */}
             <CategoryCard 
