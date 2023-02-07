@@ -5,6 +5,7 @@ import { StarIcon } from 'react-native-heroicons/outline';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { urlFor } from '../sanity';
 
 
 const RestaurantCard = (props) => {
@@ -14,6 +15,8 @@ const RestaurantCard = (props) => {
     const StyledText = styled(Text)
     const StyledTouchableOpacity = styled(TouchableOpacity)
     const StyledFontAwesomeIcon = styled(FontAwesomeIcon)
+    const imgUrl = props.imgUrl
+
 
     return (
     
@@ -23,7 +26,8 @@ const RestaurantCard = (props) => {
         >
             <Image 
                 source={{
-                    uri: props.imgUrl
+                    uri: urlFor(props.imgUrl).url()
+                    // uri: imgUrl
                 }}
                 className="h-36 w-64 rounded-t-md"
             />

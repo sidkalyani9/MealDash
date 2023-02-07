@@ -1,5 +1,5 @@
 import { View, Text , Image, TextInput, ScrollView} from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
@@ -11,8 +11,12 @@ import {
 } from "react-native-heroicons/outline";
 import Categories from './Category/Categories';
 import Featured from './Featured';
+import client from '../sanity';
+
 
 const HomeScreen = () => {
+
+  const[featuredCategories,setFeaturedCategories] = useState([]);
 
   const StyledView = styled(View)
   const navigation = useNavigation();
@@ -21,6 +25,8 @@ const HomeScreen = () => {
   const StyledTextInput = styled(TextInput);
   const SChevronDownIcon = styled(ChevronDownIcon);
   const StyledScrollView = styled(ScrollView)
+
+  
   
   useLayoutEffect(() => {
       navigation.setOptions({
@@ -29,6 +35,19 @@ const HomeScreen = () => {
       });
   },[]);
 
+  useEffect(() => {
+    client.fetch(`
+      *[_type == "featured"] {
+        ...,
+        restaurants[] -> {
+          ...,
+          dishes[]->
+      }
+    }`).then(data => {
+      setFeaturedCategories(data);
+    })
+  },[])
+  // console.log(featuredCategories);
   return (
     <StyledSafeAreaView className="bg-white pt-3">
         <StyledView className="flex-row items-center">
@@ -84,7 +103,17 @@ const HomeScreen = () => {
 
           {/* Featured */}
             <StyledView className='bg-gray-100'>
-              <Featured 
+              
+              {featuredCategories?.map(category => (
+                <Featured 
+                  key = {category._id}
+                  id = {category._id}
+                  title = {category.name}
+                  description = {category.short_description}
+                />
+              ))}
+
+              {/* <Featured 
                 id="1"
                 title="Featured"
                 description="Paid Placements from our Partners"
@@ -100,7 +129,7 @@ const HomeScreen = () => {
                 id="3"
                 title="Offers near you!"
                 description="Why not support your local restaurants!"
-              />
+              /> */}
             </StyledView>
           </StyledScrollView>
     </StyledSafeAreaView>
