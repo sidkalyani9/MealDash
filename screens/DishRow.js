@@ -5,7 +5,7 @@ import Currency from 'react-currency-formatter'
 import { urlFor } from '../sanity';
 import ReadMore from '@expo/react-native-read-more-text';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToBasket, selectBasketItems } from '../features/basketSlice';
+import { addToBasket, removeFromBasket, selectBasketItems, selectBasketItemsById } from '../features/basketSlice';
 
 const DishRow = ({
     id,
@@ -28,7 +28,14 @@ const DishRow = ({
         // dispatch(addToBasket({id}))
     }
 
-    const items = useSelector(selectBasketItems);
+    const removeItemsFromBasket = () => {
+      if(items.length>0){
+        dispatch(removeFromBasket({id}));
+      }
+      
+    }
+
+    const items = useSelector((state)=> selectBasketItemsById(state,id));
 
     _renderTruncatedFooter = (handlePress) => {
         return (
@@ -63,7 +70,10 @@ const DishRow = ({
             />
 
             <StyledView className='bg-gray-100 border-red-400 border-[1px] border-solid w-24 h-9 rounded-md absolute left-[25%] bottom-[1vh] items-center justify-center flex-row space-x-2'>
-              <StyledTouchableOpacity className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'>
+              <StyledTouchableOpacity 
+                className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
+                onPress={removeItemsFromBasket}
+              >
                 <StyledText className=' text-red-400 text-lg'>-</StyledText>
               </StyledTouchableOpacity>
                 

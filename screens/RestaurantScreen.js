@@ -47,7 +47,9 @@ const RestaurantScreen = () => {
     },[])
 
   return (
-    <StyledScrollView>
+    <StyledScrollView contentContainerStyle={{
+
+      }}>
         <StyledView className='relative'>
             <StyledImage
                 source={{
