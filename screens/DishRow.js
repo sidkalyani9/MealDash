@@ -74,17 +74,18 @@ const DishRow = ({
                 className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
                 onPress={removeItemsFromBasket}
               >
-                <StyledText className=' text-red-400 text-lg'>-</StyledText>
+                <StyledText className={`${items.length == 0 && "text-gray-400"} ${items.length > 0 && "text-red-400"} text-lg`}>-</StyledText>
               </StyledTouchableOpacity>
                 
-              <StyledText className='text-black text-lg  font-light'>
+              <StyledText className='text-black text-lg  py-0.5 font-light'>
                 {items.length}
               </StyledText>
               <TouchableOpacity 
                 className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
                 onPress={addItemToBasket}
               >
-                <StyledText className=' text-red-400 text-lg'>+</StyledText>
+                <StyledText className= 'text-red-400 text-lg'>+</StyledText>
+                
               </TouchableOpacity>  
             </StyledView>
             
@@ -98,7 +99,7 @@ const DishRow = ({
             <StyledView>
             {/* <StyledText className='text-gray-400 text-xs text-justify pr-2 pt-7' >{description}</StyledText> */}
                 <StyledReadMore 
-                    numberOfLines={4}
+                    numberOfLines={3}
                     renderTruncatedFooter={this._renderTruncatedFooter}
                     renderRevealedFooter={this._renderRevealedFooter}
                     onReady={this._handleTextReady}
