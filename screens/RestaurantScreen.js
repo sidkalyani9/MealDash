@@ -13,6 +13,7 @@ import {
     UserIcon
   } from "react-native-heroicons/outline";
 import DishRow from './DishRow';
+import BasketIcon from './Basket/BasketIcon';
 
 const RestaurantScreen = () => {
 
@@ -47,6 +48,9 @@ const RestaurantScreen = () => {
     },[])
 
   return (
+    <>
+
+    <BasketIcon />
     <StyledScrollView contentContainerStyle={{
 
       }}>
@@ -103,7 +107,7 @@ const RestaurantScreen = () => {
             </StyledView>
         </StyledView>
 
-        <StyledView>
+        <StyledView className='pb-[20%]'>
                 <StyledText className='px-4 pt-6 mb-3 font-bold text-xl'>
                     Menu
                 </StyledText>
@@ -121,6 +125,7 @@ const RestaurantScreen = () => {
         </StyledView>
 
     </StyledScrollView>
+    </>
   )
 }
 
