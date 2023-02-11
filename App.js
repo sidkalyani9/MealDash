@@ -23,9 +23,9 @@ export default function App() {
               name="Basket" 
               component={BasketScreen} 
               options={{
-                presentation: "Modal",
+                presentation: "modal",
                 headerShown: false,
-              }}  
+              }}
             />
           </Stack.Navigator>
       </NavigationContainer>

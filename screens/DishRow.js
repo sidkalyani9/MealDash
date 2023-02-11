@@ -98,7 +98,7 @@ const DishRow = ({
             </StyledText>
             <StyledView>
             {/* <StyledText className='text-gray-400 text-xs text-justify pr-2 pt-7' >{description}</StyledText> */}
-                <StyledReadMore 
+                {/* <StyledReadMore 
                     numberOfLines={3}
                     renderTruncatedFooter={this._renderTruncatedFooter}
                     renderRevealedFooter={this._renderRevealedFooter}
@@ -107,7 +107,7 @@ const DishRow = ({
                     <StyledText className='text-gray-400 text-xs pr-2'>
                         {description}
                     </StyledText>
-                </StyledReadMore>
+                </StyledReadMore> */}
             </StyledView>
         </StyledView>
 
