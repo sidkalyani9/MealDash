@@ -4,11 +4,12 @@
     "slug": "deliveroo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon-2.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain"
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

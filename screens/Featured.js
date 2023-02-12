@@ -37,13 +37,13 @@ const Featured = (props) => {
       <StyledView className='px-3.5 mt-5'>
         
         {/* Heading */}
-        <StyledView className='flex-row justify-between items-center'>
-          <StyledText className='text-bold text-lg'>{props.title}</StyledText>
+        <StyledView className='flex-row justify-center items-center'>
+          <StyledText className='text-bold tracking-widest text-lg justify-center text-center flex-1'>{props.title}</StyledText>
           <ArrowRightIcon size={25} color="#FE3448"/>
         </StyledView>
 
         {/* Description */}
-        <StyledText className='text-xs text-gray-500'>{props.description}</StyledText>
+        {/* <StyledText className='text-xs text-gray-500'>{props.description}</StyledText> */}
 
         {/* Restaurant Cards */}
         <StyledScrollView 

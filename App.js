@@ -1,34 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { Image, Text, View } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import RestaurantScreen from './screens/RestaurantScreen';
 import { Provider } from 'react-redux'
 import { store } from './store';
 import BasketScreen from './screens/Basket/BasketScreen';
+import FastImage from 'react-native-fast-image';
+import { useState } from 'react';
+import MainApp from './MainApp';
 
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [done,isDone] = useState(false)
+
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-          <Stack.Navigator>
-            {/* Screen */}
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Restaurant" component={RestaurantScreen} />
-            <Stack.Screen 
-              name="Basket" 
-              component={BasketScreen} 
-              options={{
-                presentation: "modal",
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <>
+    {!done && <Image
+            style={{ width: "100%", height: "100%" }}
+            source={{
+              uri: "https://www.linkpicture.com/q/splash.gif", //give your url here
+              priority: FastImage.priority.high
+            }}
+            onLoadStart={() => {
+              setTimeout(
+                () => {
+                //navigate to another screen after some times
+                isDone(true)
+                },
+                3500
+              );
+            }}
+      />
+    }
+    {done && <MainApp />}
+    </>
   );
 } 
