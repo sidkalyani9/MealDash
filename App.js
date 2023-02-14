@@ -23,7 +23,7 @@ export default function App() {
     {!done && <Image
             style={{ width: "100%", height: "100%" }}
             source={{
-              uri: "https://www.linkpicture.com/q/splash.gif", //give your url here
+              uri: "https://www.linkpicture.com/q/Meal-Dash.gif", //give your url here
               priority: FastImage.priority.high
             }}
             onLoadStart={() => {
@@ -32,7 +32,7 @@ export default function App() {
                 //navigate to another screen after some times
                 isDone(true)
                 },
-                3500
+                1300
               );
             }}
       />

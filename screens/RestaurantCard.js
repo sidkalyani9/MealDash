@@ -30,7 +30,7 @@ const RestaurantCard = ({
 
     return (
         <TouchableOpacity 
-            className="mt-4 mr-4 rounded-md shadow"
+            className="mt-4 mr-4 rounded-xl shadow"
             style={styles.container}
             onPress={() => {
                 navigation.navigate('Restaurant',{
@@ -52,7 +52,7 @@ const RestaurantCard = ({
                     uri: urlFor(imgUrl).url()
                     // uri: imgUrl
                 }}
-                className="h-36 w-64 rounded-t-md"
+                className="h-36 w-64 rounded-t-xl"
             />
 
             <StyledView className='px-3 pb-4'>
