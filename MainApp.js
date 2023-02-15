@@ -12,12 +12,13 @@ import BasketScreen from './screens/Basket/BasketScreen';
 const Stack = createNativeStackNavigator();
 
 export default function MainApp() {
+  
   return (
     <Provider store={store}>
       <NavigationContainer>
           <Stack.Navigator>
             {/* Screen */}
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Home" component={HomeScreen}  />
             <Stack.Screen name="Restaurant" component={RestaurantScreen} />
             <Stack.Screen 
               name="Basket" 

@@ -20,24 +20,30 @@ export default function App() {
 
   return (
     <>
-    {!done && <Image
+    {!done && <><Image
             style={{ width: "100%", height: "100%" }}
-            source={{
-              uri: "https://www.linkpicture.com/q/Meal-Dash.gif", //give your url here
-              priority: FastImage.priority.high
-            }}
+            // source={{
+            //   uri: "https://www.linkpicture.com/q/Meal-Dash.gif", //give your url here
+            //   priority: FastImage.priority.high
+            // }}
+            source={
+              require('./assets/fonts/splash.gif')
+            }
             onLoadStart={() => {
               setTimeout(
                 () => {
                 //navigate to another screen after some times
                 isDone(true)
                 },
-                1300
+                1500
               );
             }}
+            
       />
+      
+      </>
     }
-    {done && <MainApp />}
+    <MainApp />
     </>
   );
 } 

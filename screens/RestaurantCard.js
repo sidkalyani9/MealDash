@@ -7,6 +7,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { urlFor } from '../sanity';
 import { useNavigation } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 
 
 const RestaurantCard = ({
@@ -21,13 +22,24 @@ const RestaurantCard = ({
     long,
     lat}) => {
 
+    const [fontsLoaded] = useFonts({
+        'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
+        'EpilogueR': require('../assets/fonts/Epilogue-Regular.ttf'),
+        'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
+        'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
+    });
+
     const StyledView = styled(View)
     const StyledText = styled(Text)
     const StyledTouchableOpacity = styled(TouchableOpacity)
     const StyledFontAwesomeIcon = styled(FontAwesomeIcon)
 
     const navigation = useNavigation();
-
+    
+    if (!fontsLoaded) {
+        return null;
+    }
+    
     return (
         <TouchableOpacity 
             className="mt-4 mr-4 rounded-xl shadow"
@@ -56,8 +68,8 @@ const RestaurantCard = ({
             />
 
             <StyledView className='px-3 pb-4'>
-                <StyledText className='font-bold text-lg pt-2'>{title}</StyledText>
-                <StyledView className='flex-row items-center space-x-1'>
+                <StyledText style={{ fontFamily: 'EpilogueB'}} className='font-bold text-lg pt-2'>{title}</StyledText>
+                <StyledView style={{ fontFamily: 'EpilogueM'}} className='flex-row items-center space-x-1'>
                     {/* <StarIcon size={22} color="#FE3448" opacity={0.5} /> */}
                     <StyledFontAwesomeIcon 
                         icon={faStar} 
@@ -66,14 +78,14 @@ const RestaurantCard = ({
                         className="opacity-70" 
                     />
 
-                    <StyledText className='text-gray-500 text-xs'>
-                        <StyledText className='text-green-500'>{rating}</StyledText> .  {genre}
+                    <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400 text-xs'>
+                        <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-green-500'>{rating}</StyledText> .  {genre}
                     </StyledText>
                     
                 </StyledView>
                 <StyledView className='flex-row pt-1 items-center'>
                     <StyledFontAwesomeIcon icon={faLocationDot} color="#FE3448" size={16} className="opacity-60" />
-                    <StyledText className='text-xs text-gray-500'> Nearby .  {address}</StyledText>
+                    <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-xs text-gray-400'> Nearby .  {address}</StyledText>
                 </StyledView>
             </StyledView>
         </TouchableOpacity>

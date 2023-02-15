@@ -6,6 +6,7 @@ import { urlFor } from '../sanity';
 import ReadMore from '@expo/react-native-read-more-text';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToBasket, removeFromBasket, selectBasketItems, selectBasketItemsById } from '../features/basketSlice';
+import { useFonts } from 'expo-font';
 
 const DishRow = ({
     id,
@@ -14,6 +15,13 @@ const DishRow = ({
     price,
     image
 }) => {
+
+  const [fontsLoaded] = useFonts({
+    'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
+    'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
+    'EpilogueR': require('../assets/fonts/Epilogue-Regular.ttf'),
+    'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
+  });
 
     const StyledText = styled(Text)
     const StyledView = styled(View)
@@ -35,6 +43,8 @@ const DishRow = ({
       
     }
 
+    
+
     const items = useSelector((state)=> selectBasketItemsById(state,id));
 
     _renderTruncatedFooter = (handlePress) => {
@@ -51,6 +61,10 @@ const DishRow = ({
             Show less
           </Text>
         );
+      }
+
+      if (!fontsLoaded) {
+        return null;
       }
 
   return (
@@ -74,26 +88,26 @@ const DishRow = ({
                 className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
                 onPress={removeItemsFromBasket}
               >
-                <StyledText className={`${items.length == 0 && "text-gray-400"} ${items.length > 0 && "text-red-400"} text-lg`}>-</StyledText>
+                <StyledText style={{ fontFamily: 'EpilogueXB'}} className={`${items.length == 0 && "text-gray-400"} ${items.length > 0 && "text-red-400"} text-lg`}>-</StyledText>
               </StyledTouchableOpacity>
                 
-              <StyledText className='text-black text-lg  py-0.5 font-light'>
+              <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-black text-lg  py-0.5 font-light'>
                 {items.length}
               </StyledText>
               <TouchableOpacity 
                 className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
                 onPress={addItemToBasket}
               >
-                <StyledText className= 'text-red-400 text-lg'>+</StyledText>
+                <StyledText style={{ fontFamily: 'EpilogueXB'}} className= 'text-red-400 text-lg'>+</StyledText>
                 
               </TouchableOpacity>  
             </StyledView>
             
         </StyledView>
 
-        <StyledView className='flex-1 h-full relative'>
-            <StyledText className='text-base mb-1'>{name}</StyledText>
-            <StyledText className={`text-gray-600 mb-[2vw]`}>
+        <StyledView className='flex-1 h-full relative pt-0.5'>
+            <StyledText  style={{ fontFamily: 'EpilogueM'}} className='text-base mb-1'>{name}</StyledText>
+            <StyledText  style={{ fontFamily: 'EpilogueM'}} className={`text-gray-600 mb-[2vw]`}>
                 <Currency quantity={price} currency="GBP" />
             </StyledText>
             <StyledView>

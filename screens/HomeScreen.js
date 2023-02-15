@@ -12,9 +12,17 @@ import {
 import Categories from './Category/Categories';
 import Featured from './Featured';
 import client from '../sanity';
+import { useFonts } from 'expo-font';
 
 
 const HomeScreen = () => {
+
+  const [fontsLoaded] = useFonts({
+    'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
+    'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
+    'EpilogueR': require('../assets/fonts/Epilogue-Regular.ttf'),
+    'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
+  });
 
   const[featuredCategories,setFeaturedCategories] = useState([]);
 
@@ -47,6 +55,11 @@ const HomeScreen = () => {
       setFeaturedCategories(data);
     })
   },[])
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   // console.log(featuredCategories);
   return (
     <StyledSafeAreaView className="bg-white pt-3">
@@ -62,11 +75,16 @@ const HomeScreen = () => {
             </StyledView>
 
             <StyledView className="flex-1 ml-3"> 
-              <StyledText className="font-bold text-xs text-gray-400">Deliver Now!</StyledText>
-              <StyledText className=" font-bold text-lg space-x-1">
-                Current Location
-                <SChevronDownIcon size={15} color="#FE3448" className="mb-1"/>
-              </StyledText>
+              <StyledText style={{ fontFamily: 'EpilogueB'}} className="font-bold text-xs text-gray-400">Deliver Now!</StyledText>
+              <StyledView className='flex-row items-end'>
+
+                <StyledText style={{ fontFamily: 'EpilogueB'}} className=" text-lg space-x-1 items-center">
+                  Current Location
+                  
+                </StyledText>
+
+                <SChevronDownIcon size={15} color="#FE3448" className="mb-1.5 ml-1.5"/>
+              </StyledView>
             </StyledView>
 
             <StyledView className="mx-2.5 mt-2">
@@ -79,10 +97,10 @@ const HomeScreen = () => {
         <StyledView className='flex-row space-x-2  mx-3 my-3 items-center'>
           <StyledView className='flex-row flex-1 space-x-2 py-2 px-4 rounded-lg bg-gray-200'>
                 <MagnifyingGlassIcon color="#FE3448" size={25} />
-                <StyledTextInput 
+                <StyledTextInput  style={{ fontFamily: 'EpilogueR'}} 
                   placeholder='Search for a Restaurant'
                   keyboardType='default' 
-                  className='flex flex-1' />
+                  className='flex flex-1 tracking-tight' />
 
           </StyledView>
 

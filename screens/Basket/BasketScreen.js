@@ -8,8 +8,15 @@ import { removeFromBasket, selectBasketItems, selectBasketTotal } from '../../fe
 import {XCircleIcon} from 'react-native-heroicons/solid'
 import { urlFor } from '../../sanity';
 import Currency from 'react-currency-formatter'
+import { useFonts } from 'expo-font';
 
 const BasketScreen = () => {
+
+    const [fontsLoaded] = useFonts({
+      'Epilogue-Bold': require('../../assets/fonts/Epilogue-Bold.ttf'),
+      'EpilogueR': require('../../assets/fonts/Epilogue-Regular.ttf'),
+      'EpilogueM': require('../../assets/fonts/Epilogue-Medium.ttf'),
+    });
 
     const StyledText = styled(Text)
     const StyledView = styled(View)
@@ -37,14 +44,18 @@ const BasketScreen = () => {
       setGroupedItems(groupedItems)
     },[items])
 
+    if (!fontsLoaded) {
+      return null;
+    }
+
   return (
     <StyledSafeAreaView className='flex-1 bg-white'>
       <StyledView className='flex-1 bg-gray-100'>
         
         <StyledView className='p-5 border-b border-[#FE3448] bg-white shadow-sm'>
           <StyledView>
-            <StyledText className='text-center text-lg font-bold'>Basket</StyledText>
-            <StyledText className='text-center text-gray-400'>{restaurant.title}</StyledText>
+            <StyledText className='text-center text-lg font-extrabold'  style={{ fontFamily: 'Epilogue-Bold'}}>Basket</StyledText>
+            <StyledText className='text-center text-gray-400' style={{ fontFamily: 'EpilogueM'}} >{restaurant.title}</StyledText>
           </StyledView>
         </StyledView>
         <StyledTouchableOpacity className='absolute top-5 right-3' onPress={navigation.goBack}>
@@ -58,25 +69,25 @@ const BasketScreen = () => {
             }}  
             className='h-10 w-10 bg-gray-300 p-4 rounded-full'
           />
-          <StyledText className='flex-1'>
+          <StyledText className='flex-1' style={{ fontFamily: 'EpilogueM'}}>
             Deliver in 50-55 Minutes
           </StyledText>
           <StyledTouchableOpacity>
-            <StyledText className='text-[#FE3448]'>Change</StyledText>
+            <StyledText className='text-[#FE3448]' style={{ fontFamily: 'EpilogueM'}}>Change</StyledText>
           </StyledTouchableOpacity>
         </StyledView>
 
         <StyledScrollView className=''>
             {Object.entries(groupedItemsInBasket).map(([key,items]) => (
               <StyledView key={key} className='flex-row items-center space-x-3 bg-white py-2 my-1 px-2 mx-3 rounded-xl'>
-                <StyledText className='tracking-widest text-[#FE3448]'>{items.length}X</StyledText>
+                <StyledText style={{ fontFamily: 'EpilogueM'}} className='tracking-widest text-[#FE3448]'>{items.length}X</StyledText>
                 <StyledImage 
                   source={{
                     uri: urlFor(items[0]?.image).url()
                   }}
                   className='h-12 w-12 rounded-md'
                 />
-                <StyledText className='flex-1'>
+                <StyledText className='flex-1 tracking-wide' style={{ fontFamily: 'EpilogueM'}}>
                   {items[0].name}
                 </StyledText>
                 <StyledText className='text-gray-400'>
@@ -87,7 +98,7 @@ const BasketScreen = () => {
                     dispatch(removeFromBasket({id: key}))
                   }}
                 >
-                  <StyledText className='text-[#FE3448] text-xs'>
+                  <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-[#FE3448] text-xs'>
                     Remove
                   </StyledText>
                 </StyledTouchableOpacity>
@@ -99,22 +110,22 @@ const BasketScreen = () => {
         <StyledView className='p-5 bg-white mt-5 space-y-4'>
           
           <StyledView className='flex-row justify-between'>
-            <StyledText className='text-gray-400'>Subtotal</StyledText>
-            <StyledText className='text-gray-400'><Currency quantity={basketTotal} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'>Subtotal</StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'><Currency quantity={basketTotal} currency="GBP" /></StyledText>
           </StyledView>
 
           <StyledView className='flex-row justify-between'>
-            <StyledText className='text-gray-400'>Delivery Fee</StyledText>
-            <StyledText className='text-gray-400'><Currency quantity={basketTotal*0.2} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'>Delivery Fee</StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'><Currency quantity={basketTotal*0.2} currency="GBP" /></StyledText>
           </StyledView>
 
           <StyledView className='flex-row justify-between'>
-            <StyledText className='text-lg font-medium'>Order Total</StyledText>
-            <StyledText className='text-lg font-medium'><Currency quantity={basketTotal+basketTotal*0.2} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-lg font-medium'>Order Total</StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-lg font-medium'><Currency quantity={basketTotal+basketTotal*0.2} currency="GBP" /></StyledText>
           </StyledView>
 
           <StyledTouchableOpacity className='p-4 bg-[#FE3448] rounded-2xl'>
-            <StyledText className='text-center text-lg font-bold text-white'>Place Order</StyledText>
+            <StyledText style={{ fontFamily: 'Epilogue-Bold'}} className='text-center text-lg font-bold text-white'>Place Order</StyledText>
           </StyledTouchableOpacity>
 
         </StyledView>

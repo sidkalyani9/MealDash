@@ -10,8 +10,15 @@ import DishRow from './DishRow';
 import BasketIcon from './Basket/BasketIcon';
 import { useDispatch } from 'react-redux';
 import { setRestaurant } from '../features/restaurantSlice';
+import { useFonts } from 'expo-font';
 
 const RestaurantScreen = () => {
+
+    const [fontsLoaded] = useFonts({
+        'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
+        'EpilogueR': require('../assets/fonts/Epilogue-Regular.ttf'),
+        'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
+      });
 
     const navigation = useNavigation();
 
@@ -62,6 +69,10 @@ const RestaurantScreen = () => {
         })
     },[])
 
+    if (!fontsLoaded) {
+        return null;
+    }
+
   return (
     <>
 
@@ -86,7 +97,7 @@ const RestaurantScreen = () => {
 
         <StyledView className='bg-white'>
             <StyledView className='px-4 pt-4'>
-                <StyledText className='text-3xl font-bold'>
+                <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-3xl font-bold'>
                     {title}
                 </StyledText>
                 <StyledView className='flex-row space-x-3 my-1'>
@@ -97,8 +108,8 @@ const RestaurantScreen = () => {
                             size={16} 
                             className="opacity-70" 
                         />
-                        <StyledText className='text-gray-500 text-xs'>
-                            <StyledText className='text-green-500'>{rating}</StyledText> . {genre}
+                        <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-500 text-xs'>
+                            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-green-500'>{rating}</StyledText> . {genre}
                         </StyledText>
                     </StyledView>
 
@@ -109,13 +120,13 @@ const RestaurantScreen = () => {
                             size={16} 
                             className="opacity-70" 
                         />
-                        <StyledText className='text-gray-500 text-xs'>
-                            <StyledText className='text-xs text-gray-500'> Nearby . {address}</StyledText>
+                        <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-500 text-xs'>
+                            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-xs text-gray-500'> Nearby . {address}</StyledText>
                         </StyledText>
                     </StyledView>
                 </StyledView>
 
-                <StyledText className='text-gray-400 mt-3 pb-4'>
+                <StyledText  style={{ fontFamily: 'EpilogueR'}} className='text-gray-400 mt-3 pb-4 leading-4'>
                     {short_description}
                 </StyledText>
 
@@ -123,7 +134,7 @@ const RestaurantScreen = () => {
         </StyledView>
 
         <StyledView className='pb-[20%]'>
-                <StyledText className='px-4 pt-6 mb-3 font-bold text-xl'>
+                <StyledText  style={{ fontFamily: 'EpilogueM'}} className='px-4 pt-6 mb-3 font-bold text-xl'>
                     Menu
                 </StyledText>
                 {/* Dishrows */}
