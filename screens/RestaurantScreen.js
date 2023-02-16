@@ -18,6 +18,7 @@ const RestaurantScreen = () => {
         'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
         'EpilogueR': require('../assets/fonts/Epilogue-Regular.ttf'),
         'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
+        
       });
 
     const navigation = useNavigation();
@@ -97,7 +98,7 @@ const RestaurantScreen = () => {
 
         <StyledView className='bg-white'>
             <StyledView className='px-4 pt-4'>
-                <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-3xl font-bold'>
+                <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-3xl'>
                     {title}
                 </StyledText>
                 <StyledView className='flex-row space-x-3 my-1'>

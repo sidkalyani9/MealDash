@@ -16,6 +16,7 @@ const BasketScreen = () => {
       'Epilogue-Bold': require('../../assets/fonts/Epilogue-Bold.ttf'),
       'EpilogueR': require('../../assets/fonts/Epilogue-Regular.ttf'),
       'EpilogueM': require('../../assets/fonts/Epilogue-Medium.ttf'),
+      'EpilogueXB': require('../../assets/fonts/Epilogue-ExtraBold.ttf'),
     });
 
     const StyledText = styled(Text)
@@ -54,7 +55,7 @@ const BasketScreen = () => {
         
         <StyledView className='p-5 border-b border-[#FE3448] bg-white shadow-sm'>
           <StyledView>
-            <StyledText className='text-center text-lg font-extrabold'  style={{ fontFamily: 'Epilogue-Bold'}}>Basket</StyledText>
+            <StyledText className='text-center text-xl'  style={{ fontFamily: 'Epilogue-Bold'}}>Basket</StyledText>
             <StyledText className='text-center text-gray-400' style={{ fontFamily: 'EpilogueM'}} >{restaurant.title}</StyledText>
           </StyledView>
         </StyledView>
@@ -120,12 +121,15 @@ const BasketScreen = () => {
           </StyledView>
 
           <StyledView className='flex-row justify-between'>
-            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-lg font-medium'>Order Total</StyledText>
-            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-lg font-medium'><Currency quantity={basketTotal+basketTotal*0.2} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-lg font-medium'>Order Total</StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-lg font-medium'><Currency quantity={basketTotal+basketTotal*0.2} currency="GBP" /></StyledText>
           </StyledView>
 
-          <StyledTouchableOpacity className='p-4 bg-[#FE3448] rounded-2xl'>
-            <StyledText style={{ fontFamily: 'Epilogue-Bold'}} className='text-center text-lg font-bold text-white'>Place Order</StyledText>
+          <StyledTouchableOpacity 
+            className='p-4 bg-[#FE3448] rounded-2xl'
+            onPress={() => navigation.navigate("Preparing")}
+          >
+            <StyledText style={{ fontFamily: 'EpilogueXB'}} className='text-center text-lg font-bold text-white'>Place Order</StyledText>
           </StyledTouchableOpacity>
 
         </StyledView>

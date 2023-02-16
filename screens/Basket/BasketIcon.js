@@ -10,9 +10,10 @@ import { useFonts } from 'expo-font';
 const BasketIcon = () => {
 
     const [fontsLoaded] = useFonts({
-        'Epilogue-Bold': require('../../assets/fonts/Epilogue-Bold.ttf'),
+        'EpilogueB': require('../../assets/fonts/Epilogue-Bold.ttf'),
         'EpilogueR': require('../../assets/fonts/Epilogue-Regular.ttf'),
         'EpilogueM': require('../../assets/fonts/Epilogue-Medium.ttf'),
+        'EpilogueXB': require('../../assets/fonts/Epilogue-ExtraBold.ttf'),
     });
 
     const items = useSelector(selectBasketItems)
@@ -33,12 +34,12 @@ const BasketIcon = () => {
     return (
         <StyledView className='absolute bottom-[3%] w-full px-4 z-50 rounded-lg'> 
             <StyledTouchableOpacity 
-                className='bg-[#00CCBB] p-4 rounded-lg flex-row items-center space-x-[4%]'
+                className='bg-[#FE3448] p-4 rounded-xl flex-row items-center space-x-[4%]'
                 onPress={() => navigation.navigate("Basket")}    
             >
-                <StyledText className='text-[#ffffff] rounded-xl bg-[#01a29795] px-3 py-1 text-xl font-extrabold'  style={{ fontFamily: 'Epilogue-Bold'}}>{items.length}</StyledText>
-                <StyledText className='flex-1 text-white font-bold text-lg text-center' style={{ fontFamily: 'Epilogue-Bold'}}>View Basket</StyledText>
-                <StyledText className='text-white bg-[#01a29795] rounded-3xl px-2 py-1 text-lg font-bold' style={{ fontFamily: 'Epilogue-Bold'}}><Currency quantity={basketTotal} currency="GBP" className="rounded-3xl"/></StyledText>
+                <StyledText  className='text-[#ffffff] rounded-xl bg-[#d6293a] px-3 py-1 text-xl font-extrabold'  style={{ fontFamily: 'EpilogueB'}}>{items.length}</StyledText>
+                <StyledText className='flex-1 text-white font-bold text-lg text-center' style={{ fontFamily: 'EpilogueXB'}}>View Basket</StyledText>
+                <StyledText className='text-white bg-[#d6293a] rounded-xl px-2 py-1 text-lg font-bold' style={{ fontFamily: 'EpilogueB'}}><Currency quantity={basketTotal} currency="GBP" className="rounded-3xl"/></StyledText>
             </StyledTouchableOpacity>
         </StyledView>
     )

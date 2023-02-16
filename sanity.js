@@ -1,4 +1,3 @@
-
 // import SanityClientConstructor from "@sanity/client";
 const sanityClient = require('@sanity/client')
 const ImageUrlBuilder = require("@sanity/image-url");

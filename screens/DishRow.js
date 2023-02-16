@@ -83,22 +83,22 @@ const DishRow = ({
                 }}
             />
 
-            <StyledView className='bg-gray-100 border-red-400 border-[1px] border-solid w-24 h-9 rounded-md absolute left-[25%] bottom-[1vh] items-center justify-center flex-row space-x-2'>
+            <StyledView className='bg-gray-100 border-red-400 border-[1px] border-solid w-24 h-10 rounded-md absolute left-[25%] bottom-[1vh] justify-center items-center flex-row space-x-2.5'>
               <StyledTouchableOpacity 
-                className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
+                className='bg-gray-100 w-6 justify-center items-center rounded-md'
                 onPress={removeItemsFromBasket}
               >
-                <StyledText style={{ fontFamily: 'EpilogueXB'}} className={`${items.length == 0 && "text-gray-400"} ${items.length > 0 && "text-red-400"} text-lg`}>-</StyledText>
+                <StyledText style={{ fontFamily: 'EpilogueM'}} className={`${items.length == 0 && "text-gray-400"} ${items.length > 0 && "text-red-400"} text-3xl`}>-</StyledText>
               </StyledTouchableOpacity>
                 
-              <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-black text-lg  py-0.5 font-light'>
+              <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-black text-lg items-center justify-center mt-1 font-light '>
                 {items.length}
               </StyledText>
               <TouchableOpacity 
-                className='bg-gray-100 w-6 items-center justify-center border-solid rounded-md'
+                className='bg-gray-100 w-6 justify-center items-center rounded-md'
                 onPress={addItemToBasket}
               >
-                <StyledText style={{ fontFamily: 'EpilogueXB'}} className= 'text-red-400 text-lg'>+</StyledText>
+                <StyledText style={{ fontFamily: 'EpilogueM'}} className= 'text-red-400 text-3xl'>+</StyledText>
                 
               </TouchableOpacity>  
             </StyledView>
