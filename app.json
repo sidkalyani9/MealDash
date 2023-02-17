@@ -18,14 +18,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.siddharthKalyani.mealDash"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.siddharthkalyani.mealdash"
+      "package": "com.siddharthkalyani.mealdash",
+      "config": {
+        "googleMaps": {
+          "apiKey":"AIzaSyBw_VGQRJmQRF4NAyQCo7Dx6EsFcbaWIJc"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

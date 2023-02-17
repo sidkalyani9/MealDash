@@ -7,8 +7,7 @@ import { XCircleIcon } from 'react-native-heroicons/mini'
 import { useFonts } from 'expo-font';
 import * as Progress from 'react-native-progress';
 import MapView, { MapMarker } from 'react-native-maps';
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { PROVIDER_GOOGLE } from 'react-native-maps'
 
 const DeliveryScreen = () => {
     const StyledView = styled(View)
@@ -69,17 +68,16 @@ const DeliveryScreen = () => {
                 </StyledText>
             </StyledView>
         </StyledSafeAreaView>
-
         <MapView
-            region={{
+            initialRegion={{
                 latitude: restaurant.lat,
                 longitude: restaurant.long,
                 latitudeDelta:0.005,
                 longitudeDelta:0.01,
             }}
-            mapType="mutedStandard"
+            mapType="standard"
             className="flex-1 -mt-10 z-0"
-            minZoomLevel={0.01}
+            provider= {PROVIDER_GOOGLE}
         >
             <MapMarker
                 coordinate={{
@@ -90,6 +88,7 @@ const DeliveryScreen = () => {
                 description={restaurant.short_description}
                 identifier="origin"
                 pinColor="#FE3448"
+                style={{width: 250}}
             />
         </MapView>
     </StyledView>

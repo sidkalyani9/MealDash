@@ -17,6 +17,7 @@ import { useFonts } from 'expo-font';
 
 const HomeScreen = () => {
 
+  const rest = ""
   const [fontsLoaded] = useFonts({
     'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
     'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
@@ -25,6 +26,7 @@ const HomeScreen = () => {
   });
 
   const[featuredCategories,setFeaturedCategories] = useState([]);
+  const[searched,setSearched] = useState([]);
 
   const StyledView = styled(View)
   const navigation = useNavigation();
@@ -43,15 +45,28 @@ const HomeScreen = () => {
       });
   },[]);
 
+  // To Fetch Searched Restaurants
+  useEffect(() => {
+    {!rest=="" && 
+      client.fetch(`
+      *[_type == "restaurant" && name match "*${rest}*" ] `).then(data => {
+        setSearched(data);
+        console.log(data)
+      })
+    }
+  },[])
+
+  // To Fetch all the Featured Restaurant Cards
   useEffect(() => {
     client.fetch(`
-      *[_type == "featured"] {
+    *[_type == "featured"] {
+      ...,
+      restaurants[] -> {
         ...,
-        restaurants[] -> {
-          ...,
-          dishes[]->
-      }
-    }`).then(data => {
+        dishes[]->
+    }
+  }
+    `).then(data => {
       setFeaturedCategories(data);
     })
   },[])
@@ -100,7 +115,9 @@ const HomeScreen = () => {
                 <StyledTextInput  style={{ fontFamily: 'EpilogueR'}} 
                   placeholder='Search for a Restaurant'
                   keyboardType='default' 
-                  className='flex flex-1 tracking-tight' />
+                  className='flex flex-1 tracking-tight' 
+                  
+                />
 
           </StyledView>
 
