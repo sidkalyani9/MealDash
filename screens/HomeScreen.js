@@ -2,7 +2,8 @@ import { View, Text , Image, TextInput, ScrollView} from 'react-native'
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import SvgUri from 'react-native-svg-uri';
+import noItem from '../assets/fonts/noItem.svg'
 import {
   ChevronDownIcon, 
   MagnifyingGlassIcon,
@@ -172,7 +173,8 @@ const HomeScreen = () => {
           }
 
           {search != "" && 
-            <View className="bg-gray-100 h-full">
+            searchedItems.length > 0 &&
+            <ScrollView className="bg-gray-100 h-full">
               {searchedItems?.map(searchedItem => (
                  <RestaurantShortCard 
                     key = {searchedItem._id}
@@ -188,8 +190,23 @@ const HomeScreen = () => {
                   />
               ))}
              
+            </ScrollView>
+          }
+
+          { search != "" && 
+            searchedItems.length == 0 &&
+            <View className="bg-gray-100 h-full items-center pt-[35%]">
+              <Image
+                source={
+                  require('../assets/fonts/noItem.png')
+                }  
+                className="w-[90%] h-[40%]"
+              />
+              <Text style={{ fontFamily: 'EpilogueR'}} className="text-lg">Searched Restaurant Not Found! 🧐</Text>
+
             </View>
           }
+
     </SafeAreaView>
   )
 }
