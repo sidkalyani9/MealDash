@@ -2,8 +2,6 @@ import { View, Text , Image, TextInput, ScrollView} from 'react-native'
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SvgUri from 'react-native-svg-uri';
-import noItem from '../assets/fonts/noItem.svg'
 import {
   ChevronDownIcon, 
   MagnifyingGlassIcon,

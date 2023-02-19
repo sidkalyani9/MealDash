@@ -20,7 +20,7 @@ const Search = () => {
                     clearIconImageStyle={{ tintColor: '#FE3448'}}
                     textInputStyle= {{ fontFamily: 'EpilogueR' }}
                     placeholder={"Search for Restaurants"}
-                    className='flex flex-1 tracking-tight rounded-xl h-12' 
+                    className='flex flex-1 tracking-tight rounded-xl h-12 border-solid  bg-gray-100 ' 
                     style={{ fontFamily: 'EpilogueR'}}
                     onChangeText={(text) => dispatch(setSearch(text))}
                     onClearPress={() => dispatch(setSearch(""))}
