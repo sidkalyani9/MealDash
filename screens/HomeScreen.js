@@ -17,6 +17,7 @@ import SearchBar from 'react-native-dynamic-search-bar';
 import Search from './Search';
 import { useSelector } from 'react-redux';
 import { selectSearch } from '../features/searchSlice';
+import RestaurantShortCard from './RestaurantShortCard';
 
 
 const HomeScreen = () => {
@@ -41,16 +42,17 @@ const HomeScreen = () => {
       });
   },[]);
 
-  // To Fetch Searched Restaurants
-  // useEffect(() => {
-  //   {!search=="" && 
-  //     client.fetch(`
-  //     *[_type == "restaurant" && name match "*${rest}*" ] `).then(data => {
-  //       setSearched(data);
-  //       console.log(data)
-  //     })
-  //   }
-  // },[])
+  useEffect(() => {
+    {!search=="" && 
+      client.fetch(`
+      *[_type == "restaurant" && name match "*${search}*" ] {
+        ...,
+        dishes[] ->
+      }`).then(data => {
+        setSearchedItems(data)
+      })
+    }
+  },[search])
 
   // To Fetch all the Featured Restaurant Cards
   useEffect(() => {
@@ -70,8 +72,7 @@ const HomeScreen = () => {
   if (!fontsLoaded) {
     return null;
   }
-
-  // console.log(featuredCategories);
+  
   return (
     <SafeAreaView className="bg-white pt-3">
         <View className="flex-row items-center">
@@ -119,25 +120,8 @@ const HomeScreen = () => {
                 <Search />
                 
                 
-                {/* <SearchBar
-                  value={search}
-                  searchIconImageStyle={{ tintColor: '#FE3448'}}
-                  clearIconImageStyle={{ tintColor: '#FE3448'}}
-                  textInputStyle= {{ fontFamily: 'EpilogueR' }}
-                  placeholder={"Search for Restaurants"}
-                  // className='flex flex-1 tracking-tight bg-gray-100 rounded-xl h-12' 
-                  style={{ fontFamily: 'EpilogueR'}}
-                  onChangeText={(search) => setSearched(search)}
-                /> */}
-                {/* <TextInput
-                  value={se}
-                  onChangeText={(userName) => setSearched(userName)}
-                  placeholder={'UserName'}
-
-                /> */}
+                
           {/* </StyledView> */}
-
-        {/* <AdjustmentsIcon color='#00CCBB' size={20} /> */}
           <AdjustmentsVerticalIcon size={25} color="#FE3448" />
         </View>
 
@@ -188,7 +172,23 @@ const HomeScreen = () => {
           }
 
           {search != "" && 
-            <Text>Hii</Text>
+            <View className="bg-gray-100 h-full">
+              {searchedItems?.map(searchedItem => (
+                 <RestaurantShortCard 
+                    key = {searchedItem._id}
+                    id = {searchedItem._id}
+                    imgUrl = {searchedItem.image}
+                    title = {searchedItem.name}
+                    rating = {searchedItem.rating}
+                    address = {searchedItem.address}
+                    short_description = {searchedItem.short_description}
+                    dishes={searchedItem.dishes}
+                    long = {searchedItem.long}
+                    lat = {searchedItem.lat}
+                  />
+              ))}
+             
+            </View>
           }
     </SafeAreaView>
   )

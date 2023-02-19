@@ -6,7 +6,7 @@ const initialState = {
     imgUrl: null,
     title: null,
     rating: null,
-    genre: null,
+    // genre: null,
     address: null,
     short_description: null,
     dishes: null,

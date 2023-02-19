@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Image, BackHandler } from 'react-native'
 import { styled } from 'nativewind'
 import { useNavigation } from '@react-navigation/native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectRestaurant } from '../features/restaurantSlice'
 import { XCircleIcon } from 'react-native-heroicons/mini'
 import { useFonts } from 'expo-font';
@@ -9,6 +9,7 @@ import * as Progress from 'react-native-progress';
 import MapView, { MapMarker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps'
 import { useEffect } from 'react'
+import { setSearch } from '../features/searchSlice';
 
 const DeliveryScreen = () => {
     const StyledView = styled(View)
@@ -19,9 +20,11 @@ const DeliveryScreen = () => {
 
     const navigation = useNavigation();
     const restaurant = useSelector(selectRestaurant)
+    const dispatch = useDispatch()
 
     function handleBackButtonClick() {
         navigation.navigate("Home")
+        dispatch(setSearch(""))
         return true;
       }
 

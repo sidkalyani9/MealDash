@@ -39,7 +39,7 @@ const RestaurantScreen = () => {
             imgUrl,
             title,
             rating,
-            genre,
+            // genre,
             address,
             short_description,
             dishes,
@@ -55,7 +55,7 @@ const RestaurantScreen = () => {
                 imgUrl,
                 title,
                 rating,
-                genre,
+                //  genre,
                 address,
                 short_description,
                 dishes,
@@ -78,11 +78,8 @@ const RestaurantScreen = () => {
 
   return (
     <>
-
     <BasketIcon />
-    <StyledScrollView contentContainerStyle={{
-
-      }}>
+    <StyledScrollView>
         <StyledView className='relative'>
             <StyledImage
                 source={{
@@ -98,7 +95,7 @@ const RestaurantScreen = () => {
             </StyledTouchableOpacity>
         </StyledView>
 
-        <StyledView className='bg-white'>
+           <StyledView className='bg-white'>
             <StyledView className='px-4 pt-4'>
                 <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-3xl'>
                     {title}
@@ -112,11 +109,12 @@ const RestaurantScreen = () => {
                             className="opacity-70" 
                         />
                         <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-500 text-xs'>
-                            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-green-500'>{rating}</StyledText> . {genre}
-                        </StyledText>
+                            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-green-500'>{rating}</StyledText> 
+                            {/* . {genre} */}
+                         </StyledText>
                     </StyledView>
 
-                    <StyledView className='flex-row items-center space-x-0.5'>
+                     <StyledView className='flex-row items-center space-x-0.5'>
                         <StyledFontAwesomeIcon 
                             icon={faLocationDot} 
                             color="#FE3448" 
@@ -136,12 +134,12 @@ const RestaurantScreen = () => {
             </StyledView>
         </StyledView>
 
-        <StyledView className='pb-[20%]'>
+           <StyledView className='pb-[20%]'>
                 <StyledText  style={{ fontFamily: 'EpilogueM'}} className='px-4 pt-6 mb-3 font-bold text-xl'>
                     Menu
-                </StyledText>
+                </StyledText> 
                 {/* Dishrows */}
-                {dishes?.map(dish => (
+                 {dishes?.map(dish => (
                     <DishRow 
                         key={dish._id}
                         id={dish._id}
@@ -151,7 +149,7 @@ const RestaurantScreen = () => {
                         image={dish.image}
                     />
                 ))}
-        </StyledView>
+                </StyledView>  
 
     </StyledScrollView>
     </>
