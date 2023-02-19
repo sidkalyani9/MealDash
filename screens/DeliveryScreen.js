@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Image, BackHandler } from 'react-native'
 import { styled } from 'nativewind'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font';
 import * as Progress from 'react-native-progress';
 import MapView, { MapMarker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps'
+import { useEffect } from 'react'
 
 const DeliveryScreen = () => {
     const StyledView = styled(View)
@@ -19,12 +20,24 @@ const DeliveryScreen = () => {
     const navigation = useNavigation();
     const restaurant = useSelector(selectRestaurant)
 
+    function handleBackButtonClick() {
+        navigation.navigate("Home")
+        return true;
+      }
+
     const [fontsLoaded] = useFonts({
         'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
         'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
         'EpilogueR': require('../assets/fonts/Epilogue-Regular.ttf'),
         'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
       });
+
+      useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", handleBackButtonClick);
+        return () => {
+          BackHandler.removeEventListener("hardwareBackPress", handleBackButtonClick);
+        };
+      }, []);
     
       if (!fontsLoaded) {
         return null;
@@ -34,7 +47,7 @@ const DeliveryScreen = () => {
     <StyledView className='bg-[#FE3448] flex-1'>
         <StyledSafeAreaView className='z-50'>
             <StyledView className='flex-row justify-between items-center p-5'>
-                <StyledTouchableOpacity onPress={() => navigation.navigate("Home")}>
+                <StyledTouchableOpacity onPress={handleBackButtonClick}>
                 <XCircleIcon height={40} width={40} color="white"/>
                 </StyledTouchableOpacity>
 

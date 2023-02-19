@@ -129,7 +129,7 @@ const RestaurantScreen = () => {
                     </StyledView>
                 </StyledView>
 
-                <StyledText  style={{ fontFamily: 'EpilogueR'}} className='text-gray-400 mt-3 pb-4 leading-4'>
+                <StyledText  style={{ fontFamily: 'EpilogueR'}} className='text-gray-400 text-xs mt-3 pb-4 leading-4'>
                     {short_description}
                 </StyledText>
 

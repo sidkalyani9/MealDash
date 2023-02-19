@@ -25,7 +25,7 @@ const PreparingOrderScreen = () => {
     useEffect(() => {
       setTimeout(()=> {
         navigation.navigate("DeliveryScreen");
-      }, 4000);
+      }, 1500);
     }, []);
 
     if (!fontsLoaded) {
@@ -61,9 +61,9 @@ const PreparingOrderScreen = () => {
             <Progress.Circle size={60} indeterminate={true} color="#00CCBB"/>
 
             
-            <StyledTouchableOpacity className='absolute top-10 right-3' onPress={() => navigation.navigate("DeliveryScreen")}>
+            {/* <StyledTouchableOpacity className='absolute top-5 right-3' onPress={() => navigation.navigate("DeliveryScreen")}>
               <XCircleIcon height={40} width={40} color="#FE3448"/>
-            </StyledTouchableOpacity>
+            </StyledTouchableOpacity> */}
     
         </StyledSafeAreaView>
   )
