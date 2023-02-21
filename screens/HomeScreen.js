@@ -17,10 +17,13 @@ import Search from './Search';
 import { useSelector } from 'react-redux';
 import { selectSearch } from '../features/searchSlice';
 import RestaurantShortCard from './RestaurantShortCard';
+import { selectUser } from '../features/userSlice';
 
 
 const HomeScreen = () => {
 
+  const user = useSelector(selectUser)
+  console.log(user.userInfo.name)
   const [fontsLoaded] = useFonts({
     'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
     'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
@@ -89,11 +92,11 @@ const HomeScreen = () => {
               <Text style={{ fontFamily: 'EpilogueB'}} className="font-bold text-xs text-gray-400">Deliver Now!</Text>
               <View className='flex-row items-end'>
 
-                <Text style={{ fontFamily: 'EpilogueB'}} className=" text-lg space-x-1 items-center">
-                  Current Location
-                </Text>
+                {user != null && <Text style={{ fontFamily: 'EpilogueB'}} className=" text-lg space-x-1 items-center">
+                  {user.userInfo.name}
+                </Text> }
 
-                <ChevronDownIcon size={15} color="#FE3448" className="mb-3 ml-1.5"/>
+                {/* <ChevronDownIcon size={15} color="#FE3448" className="mb-3 ml-1.5"/> */}
               </View>
             </View>
 

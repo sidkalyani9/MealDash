@@ -10,6 +10,7 @@ import BasketScreen from './screens/Basket/BasketScreen';
 import FastImage from 'react-native-fast-image';
 import { useState } from 'react';
 import MainApp from './MainApp';
+import Login from './screens/Login';
 
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,7 @@ export default function App() {
       </>
     }
     <MainApp />
+
     </>
   );
 } 

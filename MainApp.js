@@ -10,18 +10,20 @@ import BasketScreen from './screens/Basket/BasketScreen';
 import PreparingOrderScreen from './screens/PreparingOrderScreen';
 import DeliveryScreen from './screens/DeliveryScreen';
 import Dummy from './screens/Dummy';
+import Login from './screens/Login';
 
 
 const Stack = createNativeStackNavigator();
 
-export default function MainApp() {
+export default function MainApp({user}) {
   
   return (
     <Provider store={store}>
       <NavigationContainer>
           <Stack.Navigator>
             {/* Screen */}
-            <Stack.Screen name="Home" component={HomeScreen}  />
+            <Stack.Screen name="login" component={Login} />
+            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Restaurant" component={RestaurantScreen} />
             <Stack.Screen 
               name="Basket" 

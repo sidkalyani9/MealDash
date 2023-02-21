@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Meal Dash",
-    "slug": "deliveroo",
+    "slug": "mealDash",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,7 +29,7 @@
       "package": "com.siddharthkalyani.mealdash",
       "config": {
         "googleMaps": {
-          "apiKey":"AIzaSyBw_VGQRJmQRF4NAyQCo7Dx6EsFcbaWIJc"
+          "apiKey": "AIzaSyBw_VGQRJmQRF4NAyQCo7Dx6EsFcbaWIJc"
         }
       }
     },
@@ -38,7 +38,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "d52faee3-c36a-4874-b20d-3eb07e49c610"
+        "projectId": "6e80b136-d8ed-478a-ba61-74ab245d650a"
       }
     }
   }
