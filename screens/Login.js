@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, Image, TouchableOpacity, Platform } from 'react-native'
 import * as WebBrowser from 'expo-web-browser'
 import * as Google from 'expo-auth-session/providers/google'
 import React, { useLayoutEffect } from 'react'
@@ -8,13 +8,20 @@ import { selectUser, setUser } from '../features/userSlice'
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
+import { useEffect } from 'react'
+import * as AuthSession from 'expo-auth-session';
+import { selectauth, setAuth } from '../features/authSlice'
 
 const Login = () => {
 
+    const[userInfo, setUserInfo] = React.useState(null)
+    const auth = useSelector(selectauth);
+    // const[auth,setAuth] = React.useState(null)
+    const[requireRefresh, setRequireRefresh] = React.useState(false)
     const user = useSelector(selectUser)
     const dispatch = useDispatch()
     WebBrowser.maybeCompleteAuthSession();
-    const[accessToken, setAccessToken] = React.useState(null)
+    // const[accessToken, setAccessToken] = React.useState(null)
     const[request, response, promtAsync] = Google.useIdTokenAuthRequest({
         clientId: "387019062552-iuqdsqvu2knceadhr5lhpecqn1fv5s1h.apps.googleusercontent.com",
         iosClientId: "387019062552-9vp4fl9svqaliirtihmnhgqitc4su70a.apps.googleusercontent.com",
@@ -28,6 +35,7 @@ const Login = () => {
       'EpilogueM': require('../assets/fonts/Epilogue-Medium.ttf'),
     });
 
+    // Hide Device Header
     useLayoutEffect(() => {
       navigation.setOptions({
         // headerTitle: "TESTING",
@@ -35,21 +43,115 @@ const Login = () => {
       });
   },[]);
 
+  // Save Response state for access token and refresh token on device storage for first login
     React.useEffect(() => {
         if(response?.type === "success"){
-            setAccessToken(response.authentication.accessToken)
-        }
-        accessToken && fetchUserInfo()
-    }, [response, accessToken])
+            // setAccessToken(response.authentication.accessToken)
+            dispatch(setAuth(response))
 
-    async function fetchUserInfo() {
-        let response = await fetch("https://www.googleapis.com/userinfo/v2/me",{
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        const userInfo = await response.json();
-        dispatch(setUser({userInfo}))
+            const persistAuth = async () => {
+              await AsyncStorage.setItem("auth",JSON.stringify(response));
+            }
+            persistAuth();
+        }
+        
+        auth && fetchUserInfo()
+    }, [response, auth])
+
+
+    // Getting access token from device storage and refreshing token if required
+    React.useEffect(() => {
+      const getPersistedValue = async () => {
+        const jsonValue = await AsyncStorage.getItem("auth")
+        if(jsonValue != null) {
+          dispatch(setAuth(JSON.parse(jsonValue)));
+          // console.log("Persisted Auth: " + auth)
+          // Checking and setting if Access Token needs refresh
+          setRequireRefresh(!AuthSession.TokenResponse.isTokenFresh(auth))
+        }
+      }
+
+      getPersistedValue()
+    },[])
+
+    const getClientId = () => {
+      if(Platform.OS == "ios"){
+        return "387019062552-9vp4fl9svqaliirtihmnhgqitc4su70a.apps.googleusercontent.com"
+      }
+      else if(Platform.OS == "android") {
+        return "387019062552-5mb808mo0pufmcghkelk2gjp6i6blc17.apps.googleusercontent.com"
+      }
+      else {
+        console.log("Invalid OS")
+      }
     }
 
+    // Refreshes Access Token if necessary
+    // const refreshToken = async () => {
+    //   const clientId = getClientId();
+    //     // console.log(auth?.authentication.refreshToken)
+    //   if(auth !=null) {
+    //     const tokenResult = await AuthSession.refreshAsync({
+    //       clientId: clientId,
+    //       refreshToken: "1//0gzbrIn807iHPCgYIARAAGBASNwF-L9IrnXa5EoAc6XffeLs3V7tX1X3BZYU3kfZwkVitHShxY2TZEqoKrKh4KdZCfFwC3KIA80k"
+    //     },{
+    //       tokenEndpoint: "https://www.googleapis.com/oauth2/v4/token"
+    //     });
+
+    //     tokenResult.refreshToken = "1//0gzbrIn807iHPCgYIARAAGBASNwF-L9IrnXa5EoAc6XffeLs3V7tX1X3BZYU3kfZwkVitHShxY2TZEqoKrKh4KdZCfFwC3KIA80k"
+
+    //     setAuth(tokenResult)
+    //     await AsyncStorage.setItem("auth",JSON.stringify(tokenResult));
+    //     setRequireRefresh(false)
+    //   }
+    // }
+
+    // if(requireRefresh){
+    //   refreshToken();
+    // }
+
+    
+    // Fetch User info
+    async function fetchUserInfo() {
+      try{
+        let response = await fetch("https://www.googleapis.com/userinfo/v2/me",{
+          headers: { Authorization: `Bearer ${auth?.authentication.accessToken}` }
+        });
+        const userInfo2 = await response.json();
+        setUserInfo(userInfo2)
+
+      }
+      catch(error) {
+        console.log(error)
+      }
+    }
+
+
+    // Set User Redux State
+    React.useEffect(() => {
+      if(userInfo != null){
+        dispatch(setUser({userInfo}))
+      }
+      
+    },[userInfo])
+
+    // const logout = async () => {
+    //   await AuthSession.revokeAsync({
+    //     token: auth.authentication.accessToken
+    //   }, {
+    //     revocationEndpoint: "https://oauth2.googLeapis.com/revoke"
+    //   });
+    // }
+
+    // Navigate to homescreen after successfull login
+    useEffect(() => {
+      if(user!=null) {
+          navigation.navigate("Home")
+      }
+    },[user])
+
+
+    
     const navigation = useNavigation()
 
     if (!fontsLoaded) {
@@ -58,7 +160,8 @@ const Login = () => {
 
   return (
     <View className="justify-center items-center h-full bg-white">
-      {user == null && accessToken == null && 
+      {/* {console.log("Response: " + JSON.stringify(response))} */}
+      {user == null &&  
         <>
         <Image 
           source={
@@ -79,7 +182,7 @@ const Login = () => {
           <TouchableOpacity
                 disabled={!request}
                 onPress = {() => {
-                    promtAsync()
+                    promtAsync({useProxy: false, showInRecents: true})
                 }}
                 className="justify-center items-center flex-row bg-gray-white border-[1px] rounded-xl border-gray-200 w-[80%] p-3 absolute bottom-[10%]"
                 // style={{shadowColor:"black", shadowOffset: "10px", shadowRadius:"12px"}}
@@ -93,12 +196,6 @@ const Login = () => {
                 <Text style={{ fontFamily: 'EpilogueR'}} className=" text-lg">Login using Google</Text>
             </TouchableOpacity>
         </>
-      }
-
-
-
-      {user != null && 
-        navigation.navigate("Home")
       }
       
     </View>

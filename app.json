@@ -20,6 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.siddharthKalyani.mealDash"
+      
     },
     "android": {
       "adaptiveIcon": {

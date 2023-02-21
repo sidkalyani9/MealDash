@@ -1,4 +1,4 @@
-import { View, Text , Image, TextInput, ScrollView} from 'react-native'
+import { View, Text , Image, TextInput, ScrollView, TouchableOpacity} from 'react-native'
 import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,12 +18,13 @@ import { useSelector } from 'react-redux';
 import { selectSearch } from '../features/searchSlice';
 import RestaurantShortCard from './RestaurantShortCard';
 import { selectUser } from '../features/userSlice';
+import * as AuthSession from 'expo-auth-session';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const HomeScreen = () => {
 
   const user = useSelector(selectUser)
-  console.log(user.userInfo.name)
   const [fontsLoaded] = useFonts({
     'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
     'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
@@ -71,6 +72,16 @@ const HomeScreen = () => {
     })
   },[])
 
+  const logout = async () => {
+    await AuthSession.revokeAsync({
+      token: "ya29.a0AVvZVsofxyxV0mXH_V3vdOFurOG5sqYOMUOviFkf0V-3ZtOH2oVAp_jpirubX6BMFc3VshI0K8tp0IsWD_u8KFvSDmcza8nuD1i4ZgNA8xGd5YKBe4t_8wpU_a9LDz_3iYVxAGgSBBvgI8uMl3fXTM_zUBqCaCgYKAR4SARISFQGbdwaIx728GdwaE1qfdF-IEzC6ZA0163"
+    }, {
+      revocationEndpoint: "https://oauth2.googLeapis.com/revoke"
+    });
+
+    await AsyncStorage.setItem("auth",null)
+  }
+
   if (!fontsLoaded) {
     return null;
   }
@@ -93,16 +104,21 @@ const HomeScreen = () => {
               <View className='flex-row items-end'>
 
                 {user != null && <Text style={{ fontFamily: 'EpilogueB'}} className=" text-lg space-x-1 items-center">
-                  {user.userInfo.name}
+                  {user?.userInfo.name}
                 </Text> }
 
                 {/* <ChevronDownIcon size={15} color="#FE3448" className="mb-3 ml-1.5"/> */}
               </View>
             </View>
 
-            <View className="mx-2.5 mt-2">
+            <TouchableOpacity 
+            // onPress={() => {
+            //   logout();
+            //   navigation.navigate("login")
+            // }} 
+            className="mx-2.5 mt-2">
               <UserIcon size={30} color="#FE3448" />
-            </View>
+            </TouchableOpacity>
         </View>
 
         {/* Search */}
