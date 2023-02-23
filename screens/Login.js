@@ -10,18 +10,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react'
 import * as AuthSession from 'expo-auth-session';
-import { selectauth, setAuth } from '../features/authSlice'
+import { selectAccessToken, selectauth, setAuth } from '../features/authSlice'
+import HomeScreen from './HomeScreen'
 
 const Login = () => {
 
+    
     const[userInfo, setUserInfo] = React.useState(null)
+    const[isLogged,setIsLogged] = React.useState(false)
     const auth = useSelector(selectauth);
     // const[auth,setAuth] = React.useState(null)
     const[requireRefresh, setRequireRefresh] = React.useState(false)
     const user = useSelector(selectUser)
     const dispatch = useDispatch()
     WebBrowser.maybeCompleteAuthSession();
-    // const[accessToken, setAccessToken] = React.useState(null)
+    const[accessToken, setAccessToken] = React.useState(null)
     const[request, response, promtAsync] = Google.useIdTokenAuthRequest({
         clientId: "387019062552-iuqdsqvu2knceadhr5lhpecqn1fv5s1h.apps.googleusercontent.com",
         iosClientId: "387019062552-9vp4fl9svqaliirtihmnhgqitc4su70a.apps.googleusercontent.com",
@@ -45,23 +48,28 @@ const Login = () => {
 
   // Save Response state for access token and refresh token on device storage for first login
     React.useEffect(() => {
+      if(isLogged==false){
         if(response?.type === "success"){
-            // setAccessToken(response.authentication.accessToken)
-            dispatch(setAuth(response))
+          
+          setAccessToken(response.authentication.accessToken)
+          // dispatch(setAuth(response))
+          dispatch(setAuth(JSON.stringify(response.authentication.accessToken)))
 
-            const persistAuth = async () => {
-              await AsyncStorage.setItem("auth",JSON.stringify(response));
-            }
-            persistAuth();
-        }
-        
-        auth && fetchUserInfo()
+          const persistAuth = async () => {
+            await AsyncStorage.setItem("auth",JSON.stringify(response.authentication.accessToken));
+          }
+          persistAuth();
+      }
+      
+      auth && fetchUserInfo()
+      }
+      console.log(isLogged)
     }, [response, auth])
-
 
     // Getting access token from device storage and refreshing token if required
     React.useEffect(() => {
       const getPersistedValue = async () => {
+        
         const jsonValue = await AsyncStorage.getItem("auth")
         if(jsonValue != null) {
           dispatch(setAuth(JSON.parse(jsonValue)));
@@ -114,8 +122,9 @@ const Login = () => {
     // Fetch User info
     async function fetchUserInfo() {
       try{
+        setIsLogged(true)
         let response = await fetch("https://www.googleapis.com/userinfo/v2/me",{
-          headers: { Authorization: `Bearer ${auth?.authentication.accessToken}` }
+          headers: { Authorization: `Bearer ${auth}` }
         });
         const userInfo2 = await response.json();
         setUserInfo(userInfo2)
@@ -144,14 +153,13 @@ const Login = () => {
     // }
 
     // Navigate to homescreen after successfull login
-    useEffect(() => {
-      if(user!=null) {
-          navigation.navigate("Home")
-      }
-    },[user])
+    // useEffect(() => {
+    //   if(user!=null) {
+    //       navigation.navigate("Home")
+    //   }
+    // },[user])
 
 
-    
     const navigation = useNavigation()
 
     if (!fontsLoaded) {
@@ -159,7 +167,7 @@ const Login = () => {
     }
 
   return (
-    <View className="justify-center items-center h-full bg-white">
+    <View className='justify-center items-center h-full bg-white'>
       {/* {console.log("Response: " + JSON.stringify(response))} */}
       {user == null &&  
         <>
@@ -182,7 +190,12 @@ const Login = () => {
           <TouchableOpacity
                 disabled={!request}
                 onPress = {() => {
+                    
+                    
                     promtAsync({useProxy: false, showInRecents: true})
+                    setIsLogged(false)
+                    console.log("BTN " + isLogged)
+                    
                 }}
                 className="justify-center items-center flex-row bg-gray-white border-[1px] rounded-xl border-gray-200 w-[80%] p-3 absolute bottom-[10%]"
                 // style={{shadowColor:"black", shadowOffset: "10px", shadowRadius:"12px"}}
@@ -195,7 +208,11 @@ const Login = () => {
               />
                 <Text style={{ fontFamily: 'EpilogueR'}} className=" text-lg">Login using Google</Text>
             </TouchableOpacity>
-        </>
+        </> 
+      }
+
+      {user != null && 
+        <HomeScreen />
       }
       
     </View>

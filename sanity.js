@@ -6,7 +6,7 @@ const ImageUrlBuilder = require("@sanity/image-url");
 
 
 const client = sanityClient({
-    projectId: 'qwoxusny',
+    projectId: 'acmhqqms',
     dataset: 'production',
     useCdn: true, // set to `true` to fetch from edge cache
     apiVersion: '2022-01-12', // use current date (YYYY-MM-DD) to target the latest API version

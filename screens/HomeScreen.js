@@ -12,19 +12,30 @@ import Categories from './Category/Categories';
 import Featured from './Featured';
 import client from '../sanity';
 import { useFonts } from 'expo-font';
-import SearchBar from 'react-native-dynamic-search-bar';
 import Search from './Search';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectSearch } from '../features/searchSlice';
 import RestaurantShortCard from './RestaurantShortCard';
-import { selectUser } from '../features/userSlice';
+import { resetUser, selectUser } from '../features/userSlice';
 import * as AuthSession from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { resetAuth, selectauth } from '../features/authSlice';
+
+
 
 
 const HomeScreen = () => {
 
+  useEffect(() => {
+    const getAuth = async () => {
+      const jsonValue = await AsyncStorage.getItem("auth")
+      setAuth(JSON.parse(jsonValue))
+    }
+    getAuth()
+  },[])
+  const [auth, setAuth] = useState(null)
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [fontsLoaded] = useFonts({
     'EpilogueB': require('../assets/fonts/Epilogue-Bold.ttf'),
     'EpilogueXB': require('../assets/fonts/Epilogue-ExtraBold.ttf'),
@@ -73,13 +84,16 @@ const HomeScreen = () => {
   },[])
 
   const logout = async () => {
+    console.log(auth.accessToken)
     await AuthSession.revokeAsync({
-      token: "ya29.a0AVvZVsofxyxV0mXH_V3vdOFurOG5sqYOMUOviFkf0V-3ZtOH2oVAp_jpirubX6BMFc3VshI0K8tp0IsWD_u8KFvSDmcza8nuD1i4ZgNA8xGd5YKBe4t_8wpU_a9LDz_3iYVxAGgSBBvgI8uMl3fXTM_zUBqCaCgYKAR4SARISFQGbdwaIx728GdwaE1qfdF-IEzC6ZA0163"
+      token: auth
     }, {
       revocationEndpoint: "https://oauth2.googLeapis.com/revoke"
     });
 
-    await AsyncStorage.setItem("auth",null)
+    dispatch(resetAuth())
+    dispatch(resetUser())
+    await AsyncStorage.removeItem("auth",null)
   }
 
   if (!fontsLoaded) {
@@ -112,10 +126,10 @@ const HomeScreen = () => {
             </View>
 
             <TouchableOpacity 
-            // onPress={() => {
-            //   logout();
-            //   navigation.navigate("login")
-            // }} 
+            onPress={() => {
+              logout();
+              // navigation.navigate("login")
+            }} 
             className="mx-2.5 mt-2">
               <UserIcon size={30} color="#FE3448" />
             </TouchableOpacity>
