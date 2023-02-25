@@ -212,7 +212,9 @@ const Login = () => {
       }
 
       {user != null && 
+      <SafeAreaView className="w-full">
         <HomeScreen />
+      </SafeAreaView>
       }
       
     </View>

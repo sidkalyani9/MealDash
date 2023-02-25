@@ -101,7 +101,7 @@ const HomeScreen = () => {
   }
   
   return (
-    <SafeAreaView className="bg-white pt-3">
+    <SafeAreaView className="bg-white pt-3 w-full">
         <View className="flex-row items-center">
         {/* Header  */}
             <View className="">
@@ -182,30 +182,13 @@ const HomeScreen = () => {
                 />
               ))}
 
-              {/* <Featured 
-                id="1"
-                title="Featured"
-                description="Paid Placements from our Partners"
-              />
-
-              <Featured 
-                id="2"
-                title="Tasty Discounts"
-                description="Best Discounts from our Top Restaurants"
-              />
-
-              <Featured 
-                id="3"
-                title="Offers near you!"
-                description="Why not support your local restaurants!"
-              /> */}
             </View>
           </ScrollView>
           }
 
           {search != "" && 
             searchedItems.length > 0 &&
-            <ScrollView className="bg-gray-100 h-full">
+            <ScrollView className="bg-gray-100 w-full h-full">
               {searchedItems?.map(searchedItem => (
                  <RestaurantShortCard 
                     key = {searchedItem._id}
@@ -226,7 +209,7 @@ const HomeScreen = () => {
 
           { search != "" && 
             searchedItems.length == 0 &&
-            <View className="bg-gray-100 h-full items-center pt-[35%]">
+            <View className="bg-gray-100 h-full w-full items-center pt-[35%]">
               <Image
                 source={
                   require('../assets/fonts/noItem.png')
