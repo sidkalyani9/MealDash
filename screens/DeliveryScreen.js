@@ -7,7 +7,7 @@ import { XCircleIcon } from 'react-native-heroicons/mini'
 import { useFonts } from 'expo-font';
 import * as Progress from 'react-native-progress';
 import MapView, { MapMarker } from 'react-native-maps';
-import { PROVIDER_GOOGLE } from 'react-native-maps'
+import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps'
 import { useEffect } from 'react'
 import { setSearch } from '../features/searchSlice';
 
@@ -93,7 +93,8 @@ const DeliveryScreen = () => {
             }}
             mapType="standard"
             className="flex-1 -mt-10 z-0"
-            provider= {PROVIDER_GOOGLE}
+            // provider= {PROVIDER_GOOGLE}
+            provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
         >
             <MapMarker
                 coordinate={{

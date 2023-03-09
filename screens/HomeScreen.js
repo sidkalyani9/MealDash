@@ -119,6 +119,8 @@ const HomeScreen = () => {
 
                 {user != null && <Text style={{ fontFamily: 'EpilogueB'}} className=" text-lg space-x-1 items-center">
                   {user?.userInfo.name}
+                  {/* {user?.userInfo.name == null && logout()}
+                  {console.log(user?.userInfo.name)} */}
                 </Text> }
 
                 {/* <ChevronDownIcon size={15} color="#FE3448" className="mb-3 ml-1.5"/> */}

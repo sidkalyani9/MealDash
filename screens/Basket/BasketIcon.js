@@ -39,7 +39,7 @@ const BasketIcon = () => {
             >
                 <StyledText  className='text-[#ffffff] rounded-xl bg-[#d6293a] px-3 py-1 text-xl font-extrabold'  style={{ fontFamily: 'EpilogueB'}}>{items.length}</StyledText>
                 <StyledText className='flex-1 text-white font-bold text-lg text-center' style={{ fontFamily: 'EpilogueXB'}}>View Basket</StyledText>
-                <StyledText className='text-white bg-[#d6293a] rounded-xl px-2 py-1 text-lg font-bold' style={{ fontFamily: 'EpilogueB'}}><Currency quantity={basketTotal} currency="GBP" className="rounded-3xl"/></StyledText>
+                <StyledText className='text-white bg-[#d6293a] rounded-xl px-2 py-1 text-lg font-bold' style={{ fontFamily: 'EpilogueB'}}><Currency quantity={basketTotal} currency="INR" className="rounded-3xl"/></StyledText>
             </StyledTouchableOpacity>
         </StyledView>
     )

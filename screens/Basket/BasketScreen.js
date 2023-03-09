@@ -92,7 +92,7 @@ const BasketScreen = () => {
                   {items[0].name}
                 </StyledText>
                 <StyledText className='text-gray-400'>
-                  <Currency quantity={items[0]?.price} currency="GBP" />
+                  <Currency quantity={items[0]?.price} currency="INR" />
                 </StyledText>
                 <StyledTouchableOpacity
                   onPress={() => {
@@ -112,17 +112,17 @@ const BasketScreen = () => {
           
           <StyledView className='flex-row justify-between'>
             <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'>Subtotal</StyledText>
-            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'><Currency quantity={basketTotal} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'><Currency quantity={basketTotal} currency="INR" /></StyledText>
           </StyledView>
 
           <StyledView className='flex-row justify-between'>
             <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'>Delivery Fee</StyledText>
-            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'><Currency quantity={basketTotal*0.2} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueM'}} className='text-gray-400'><Currency quantity={basketTotal*0.2} currency="INR" /></StyledText>
           </StyledView>
 
           <StyledView className='flex-row justify-between'>
             <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-lg font-medium'>Order Total</StyledText>
-            <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-lg font-medium'><Currency quantity={basketTotal+basketTotal*0.2} currency="GBP" /></StyledText>
+            <StyledText style={{ fontFamily: 'EpilogueB'}} className='text-lg font-medium'><Currency quantity={basketTotal+basketTotal*0.2} currency="INR" /></StyledText>
           </StyledView>
 
           <StyledTouchableOpacity 

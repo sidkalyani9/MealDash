@@ -108,7 +108,7 @@ const DishRow = ({
         <StyledView className='flex-1 h-full relative pt-0.5'>
             <StyledText  style={{ fontFamily: 'EpilogueM'}} className='text-base mb-1'>{name}</StyledText>
             <StyledText  style={{ fontFamily: 'EpilogueM'}} className={`text-gray-600 mb-[2vw]`}>
-                <Currency quantity={price} currency="GBP" />
+                <Currency quantity={price} currency="INR" />
             </StyledText>
             <StyledView>
             {/* <StyledText className='text-gray-400 text-xs text-justify pr-2 pt-7' >{description}</StyledText> */}
