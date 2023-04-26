@@ -21,7 +21,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.siddharthKalyani.mealDash",
       "config": {
-        "googleMapsApiKey": "AIzaSyCOHDUvsClpC5AHL-Gx8W4rAzd-8VdYamc"
+        "googleMapsApiKey": "Your key here"
       }
     },
     "android": {
@@ -32,7 +32,7 @@
       "package": "com.siddharthkalyani.mealdash",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyBw_VGQRJmQRF4NAyQCo7Dx6EsFcbaWIJc"
+          "apiKey": "Your Key here"
         }
       }
     },
