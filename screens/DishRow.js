@@ -68,7 +68,7 @@ const DishRow = ({
       }
 
   return (
-    <StyledView className='mx-2 my-2 rounded-2xl bg-white'>
+    <StyledView className='mx-2 my-2 rounded-2xl bg-white border-[1.2px] border-gray-200'>
         <StyledView className='flex-row'>
 
         <StyledView className='pr-3 relative'>
@@ -111,7 +111,7 @@ const DishRow = ({
                 <Currency quantity={price} currency="INR" />
             </StyledText>
             <StyledView>
-            {/* <StyledText className='text-gray-400 text-xs text-justify pr-2 pt-7' >{description}</StyledText> */}
+            <StyledText className='text-gray-400 text-xs text-justify pr-3 pt-1' >{description}</StyledText>
                 {/* <StyledReadMore 
                     numberOfLines={3}
                     renderTruncatedFooter={this._renderTruncatedFooter}

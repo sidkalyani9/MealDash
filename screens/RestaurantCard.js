@@ -42,7 +42,7 @@ const RestaurantCard = ({
     
     return (
         <TouchableOpacity 
-            className="mt-4 mr-4 rounded-xl shadow"
+            className="mt-4 mr-4 rounded-xl shadow border-[1px] border-gray-200"
             style={styles.container}
             onPress={() => {
                 navigation.navigate('Restaurant',{

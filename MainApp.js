@@ -23,6 +23,7 @@ export default function MainApp({user}) {
           <Stack.Navigator>
             {/* Screen */}
             <Stack.Screen name="login" component={Login} />
+            
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Restaurant" component={RestaurantScreen} />
             <Stack.Screen 
@@ -50,7 +51,7 @@ export default function MainApp({user}) {
                 headerShown: false,
               }}
             />
-            <Stack.Screen name="Dummy" component={Dummy}  />
+            {/* <Stack.Screen name="Dummy" component={Dummy}  /> */}
           </Stack.Navigator>
       </NavigationContainer>
     </Provider>

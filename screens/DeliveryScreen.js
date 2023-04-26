@@ -23,9 +23,11 @@ const DeliveryScreen = () => {
     const dispatch = useDispatch()
 
     function handleBackButtonClick() {
+            // navigation.goBack()
         navigation.navigate("Home")
-        dispatch(setSearch(""))
-        return true;
+        console.log("Home Screen")
+        // dispatch(setSearch(""))
+        // return true;
       }
 
     const [fontsLoaded] = useFonts({
@@ -50,7 +52,7 @@ const DeliveryScreen = () => {
     <StyledView className='bg-[#FE3448] flex-1'>
         <StyledSafeAreaView className='z-50'>
             <StyledView className='flex-row justify-between items-center p-5'>
-                <StyledTouchableOpacity onPress={handleBackButtonClick}>
+                <StyledTouchableOpacity onPress={() => navigation.navigate('login')}>
                 <XCircleIcon height={40} width={40} color="white"/>
                 </StyledTouchableOpacity>
 
